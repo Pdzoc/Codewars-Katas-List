@@ -1,0 +1,71 @@
+<header><h1>Codewars Katas list</h1></header>
+<nav>
+  <input
+    type="text"
+    name=""
+    id=""
+    [(ngModel)]="this.name"
+    (input)="changeName()"
+  />
+  <div>
+    <button
+      *ngIf="!this.changingName"
+      (click)="getData(this.name, -1)"
+      [disabled]="this.page == 0"
+    >
+      Prev
+    </button>
+    <button *ngIf="this.changingName" (click)="getUserInf(this.name)">
+      Get Data
+    </button>
+    <span style="font-size: 20px; margin-top: 3px">
+      {{ this.page + 1 }}/{{ this.allPages + 1 }}
+    </span>
+    <button
+      (click)="getData(this.name, 1)"
+      [disabled]="this.page == this.allPages"
+    >
+      Next
+    </button>
+  </div>
+</nav>
+
+<div class="user-info" *ngIf="this.user">
+  <details>
+    <summary>{{ this.user.username }}</summary>
+    <p>Honor: {{ this.user.honor }}</p>
+    <p>Leaderboard Position: {{ this.user.leaderboardPosition }}</p>
+    <p>Completed Katas: {{ this.user.codeChallenges.totalCompleted }}</p>
+  </details>
+</div>
+
+<div class="error-display" *ngIf="this.errorData.flag">
+  {{ this.errorData.message }}
+</div>
+
+<h3 id="loader" *ngIf="isLoading">Loading...</h3>
+
+<div id="container" *ngIf="allData.length > 0 && !isLoading">
+  <span *ngFor="let el of allData; let i = index">
+    <app-kata [kata]="el" [i]="i + 1 + 200 * this.page"></app-kata>
+  </span>
+</div>
+<div class="bottom-nav" *ngIf="allData.length > 0">
+  <button
+    *ngIf="!this.changingName"
+    (click)="getData(this.name, -1)"
+    [disabled]="this.page == 0"
+  >
+    Prev
+  </button>
+  <span style="font-size: 20px; margin-top: 3px">
+    {{ this.page + 1 }}/{{ this.allPages + 1 }}
+  </span>
+  <button
+    (click)="getData(this.name, 1)"
+    [disabled]="this.page == this.allPages"
+  >
+    Next
+  </button>
+</div>
+<!-- <router-outlet></router-outlet> -->

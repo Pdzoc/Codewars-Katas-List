@@ -1,0 +1,11 @@
+<div>
+  <aside>
+    #{{ i }} | {{ kata.completedAt | date: 'EE dd.MM.yyyy, HH:mm' }}
+  </aside>
+  <main>
+    <a href="{{ link }}" target="_blank"
+      ><p>{{ kata.name }}</p></a
+    >
+    <p style="font-size: large;">{{ kata.completedLanguages.join(', ') }}</p>
+  </main>
+</div>
